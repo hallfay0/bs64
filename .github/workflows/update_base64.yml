@@ -22,12 +22,12 @@ jobs:
 
     - name: Commit and Push
       env:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add bs.txt
-        git commit -m "Update base64 file" -a || echo "No changes to commit"
-        git remote set-url origin https://x-access-token:${ACCESS_TOKEN}@github.com/${{ github.repository }}.git
-        git push origin HEAD:${{ github.ref_name }}
-
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add bs.txt
+          git commit -m "Update base64 file" -a || echo "No changes to commit"
+          git remote set-url origin https://x-access-token:${ACCESS_TOKEN}@github.com/${{ github.repository }}.git
+          git push origin HEAD:${{ github.ref_name }}
+      
