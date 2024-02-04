@@ -1,0 +1,28 @@
+name: Update Base64 File
+
+on:
+  schedule:
+    - cron:  '0 */3 * * *' # 运行于每3小时
+
+jobs:
+  update-file:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Fetch Text File
+      run: |
+        curl https://raw.githubusercontent.com/hallfay0/chromegopacs/main/hy2pac.txt -o hy2pac.txt
+
+    - name: Convert to Base64 and Output
+      run: |
+        base64 hy2pac.txt > bs.txt
+
+    - name: Commit and Push
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add bs.txt
+        git commit -m "Update base64 file" -a || echo "No changes to commit"
+        git push
